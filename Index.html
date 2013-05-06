@@ -1,0 +1,384 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head> 
+  <script type='text/javascript' src='main.js'></script>
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" type="text/javascript"></script>   
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width=device-width; initial-scale=0.5; maximum-scale=0.6; minimum-scale=0.6; user-scalable=0;" />
+    <link rel="stylesheet" href="Style.css"/>
+    <link rel="stylesheet" href="Repository/jquery.signaturepad.css"/>
+    <!--[if lt IE 9]><script src="Repository/flashcanvas.js"></script><![endif]-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script src="Repository/jquery.signaturepad.min.js">
+<script src="Repository/json2.min.js"></script>
+
+</script>
+    <script>       
+        $(document).ready(function () {
+            $('.sigPad').signaturePad(); 
+	    });
+
+$(document).ready(function() { 
+$("#btnSave").click(function() 
+{ 
+alert("clicked"); 
+SaveData();
+});
+ });
+function SaveData() {
+alert("clicked11"); 
+ var fDate = $('#formDate').val();
+	        var cName = $('#ClientName').val();
+	        var fName = $('#FacilityName').val();
+	        var pickAddress = $('#PickupAddress').val();
+
+	        var dropAddress = $('#DropOffAddress').val();
+	        var dob = $('#DateOfBirth').val();
+	        var gender = $('#Gender').val();
+
+	        var aDate = $('#AppDate').val();
+	        var aTime = $('#AppTime').val();
+	        var pickTimeHome = $('#PickUpTimeHome').val();
+
+	        var dropTimeClinic = $('#DropOffTimeClinic').val();
+	        var pickTimeClinic = $('#PickupTimeClinic').val();
+	        var dropTimeHome = $('#DropOffTimeHome').val();
+
+	        var clientPhone = $('#ClientPhoneNumber').val();
+	        var clientClaimNumber = $('#ClientClaimNumber').val();
+	        var facilityPhone = $('#FacilityPhoneNumber').val();
+
+	        var driverName = $('#DriverName').val();	     
+	        var fSignature = $('#facilitySignature').val();
+	        var dSignature = $('#driverSignature').val();
+
+var saveRequest = new Object(); 
+saveRequest.SubmitDate =fDate;
+saveRequest.ClientName=cName;
+saveRequest.FacilityName=fName;
+saveRequest.PickupAddressHome=pickAddress;
+saveRequest.DropOffAddressClinic=dropAddress;
+saveRequest.DateOfBirth=dob;
+saveRequest.Gender=gender;
+saveRequest.AppointmentDate=aDate;
+saveRequest.AppointmentTime=aTime;
+saveRequest.PickupTimeHome=pickTimeHome;
+saveRequest.DropOffTimeClinic=dropTimeClinic;
+saveRequest.PickupTimeClinic=pickTimeClinic;
+saveRequest.DropOffTimeHome=dropTimeHome;
+saveRequest.ClientPhoneNumber=clientPhone;
+saveRequest.MedicalClaimNumber=clientClaimNumber;
+saveRequest.FacilityPhoneNumber=facilityPhone;
+saveRequest.DriverName=driverName;
+saveRequest.FacilitySignature=fSignature;
+saveRequest.DriverSignature=dSignature;
+var dataToSend = '{"saveRequest":' + JSON.stringify(saveRequest) + '}';
+
+var endpointAddress = "http://localhost:49614/MobileService.svc";
+var url = endpointAddress + "/SaveMobileData"; 
+$.ajax({ 
+type: "POST",
+ url: url , 
+data: dataToSend, 
+contentType: "application/json; charset=utf-8", 
+dataType: "json",
+success: function (response) 
+{ 
+alert('success'); 
+}, 
+error: function (response)
+ { 
+alert('error:' + response); 
+}, 
+failure: function (response)
+ {
+ alert('failure'); 
+}
+ }); 
+
+}
+
+    </script>
+    
+  </head>
+
+  <body>   
+
+    <fieldset>
+       <div id="wrapper">
+        <h1>
+            Homebound Transportation</h1>
+        <h2>
+            1401 W River Road Suite A</h2>
+        <h2>
+            Minneapolis, MN 55411</h2>
+        <h2>
+            (612) 229-7190</h2>     
+        <form action="" >
+        <fieldset>
+            <table>
+                <tr align="left">
+                    <td align="left" colspan="2">
+                        <label for="formDate">
+                            Date:</label>
+                    </td>
+                    <td colspan="2">
+                        <input type="text" id="formDate" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <table>
+                <tr>
+                    <td>
+                        <label for="ClientName">
+                            Client's Name:</label>
+                    </td>
+                    <td>
+                        <label for="FacilityName">
+                            Facility Name:</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="ClientName" />
+                    </td>
+                    <td>
+                        <input type="text" id="FacilityName" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="PickupAddress">
+                            Pick-up Address (Home):</label>
+                    </td>
+                    <td>
+                        <label for="DropOffAddress">
+                            Drop-off Address (Clinic):</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="PickupAddress" />
+                    </td>
+                    <td>
+                        <input type="text" id="DropOffAddress" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="DateOfBirth">
+                            Date of Birth:</label>
+                    </td>
+                    <td>
+                        <label for="Gender">
+                            Gender:</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="DateOfBirth" />
+                    </td>
+                    <td>
+                        <input type="text" id="Gender" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="AppDate">
+                            Appointment Date:</label>
+                    </td>
+                    <td>
+                        <label for="AppTime">
+                            Appointment Time:</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="AppDate" />
+                    </td>
+                    <td>
+                        <input type="text" id="AppTime" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="PickUpTimeHome">
+                            Pick-up Time(Home):</label>
+                    </td>
+                    <td>
+                        <label for="DropOffTimeClinic">
+                            Drop-off Time (Clinic):</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="PickUpTimeHome" />
+                    </td>
+                    <td>
+                        <input type="text" id="DropOffTimeClinic" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="PickupTimeClinic">
+                            Pick-up Time(Clinic):</label>
+                    </td>
+                    <td>
+                        <label for="DropOffTimeHome">
+                            Drop-off Time (Home):</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="PickupTimeClinic" />
+                    </td>
+                    <td>
+                        <input type="text" id="DropOffTimeHome" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="ClientPhoneNumber">
+                            Client's Phone Number:</label>
+                    </td>
+                    <td>
+                        <label for="ClientClaimNumber">
+                            Medical ID/Claim Number:</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="ClientPhoneNumber" />
+                    </td>
+                    <td>
+                        <input type="text" id="ClientClaimNumber" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="FacilityPhoneNumber">
+                            Facility Phone Number:</label>
+ 
+                    </td>
+                    <td>
+                        <label for="DriverName">
+                            Driver Name:</label>
+
+                    </td>
+                </tr>
+
+ <tr>
+                    <td>                       
+ <input type="text" id="FacilityPhoneNumber" />
+                    </td>
+                    <td>
+                       <input type="text" id="DriverName" />
+
+                    </td>
+                </tr>
+
+</table>
+              
+<table width="300" align="right" height="100">
+<tr>
+<td>
+  <label for="FacilitySignature">
+                            Facility Signature/Name:</label>
+</td>
+
+<td>
+
+ <div class="sigPad">
+
+                        <input type="text" id="FacilitySignature" class="name" />
+                        <p class="typeItDesc">
+                            Review your signature</p>
+                        <p class="drawItDesc">
+                            Draw your signature</p>
+                        <ul class="sigNav">
+                            <li class="typeIt"><a href="#type-it" class="current">Type It</a></li>
+                            <li class="drawIt"><a href="#draw-it">Draw It</a></li>
+                            <li class="clearButton"><a href="#clear">Clear</a></li>
+                        </ul>
+                        <div class="sig sigWrapper">
+                            <div class="typed">
+                            </div>
+                            <canvas class="pad" width="298"  height="100"></canvas>
+                            <input type="hidden" name="output" class="output" id="facilitySignature" />
+                        </div>            
+                                               
+                     </div>  
+
+</td>
+</tr>
+    
+<tr>
+<td>
+  <label for="DriverSignature">
+                            Driver Signature/Name:</label>
+</td>
+
+<td>
+
+<div class="sigPad">
+ <label for="DriverSignature">Driver Signature/Name:</label>
+  <input type="text" id="DriverSignature" class="name" />
+                        <p class="typeItDesc">
+                            Review your signature</p>
+                        <p class="drawItDesc">
+                            Draw your signature</p>
+                        <ul class="sigNav">
+                            <li class="typeIt"><a href="#type-it" class="current">Type It</a></li>
+                            <li class="drawIt"><a href="#draw-it">Draw It</a></li>
+                            <li class="clearButton"><a href="#clear">Clear</a></li>
+                        </ul>
+                        <div class="sig sigWrapper">
+                            <div class="typed">
+                            </div>
+                            <canvas class="pad" width="298" height="100"></canvas>
+                            <input type="hidden" name="output" class="output" id="driverSignature" />
+                        </div>            
+                                               
+                       
+                        </div>
+
+</td>
+</tr>
+                    
+                 
+               
+ <tr>                  
+                    <td>
+        <button id='btnSave'>Save</button>
+                    </td>
+  <td>
+                        <button id='reset'>I Accept the term and conditions.</button>
+                    </td>
+
+                </tr>
+            
+            </table>
+            <br />
+        </fieldset>
+
+        <div id="content">
+
+	</div>
+
+        </form>
+        <a href="javascript:void(0)" id="clear">Clear Form</a>
+    </div>
+   
+     
+     
+    </fieldset>  
+
+    <p>
+      Persist Type: <span id='type'>none</span>
+    </p>
+  </body>
+</html>
