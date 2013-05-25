@@ -1,114 +1,70 @@
 <!doctype html>
 <html lang="en">
 <head>
+ 
+ <script src="Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="viewport" content="width=device-width; initial-scale=0.5; maximum-scale=0.6; minimum-scale=0.6; user-scalable=0;" />
-    <link rel="stylesheet" href="Styles/Style.css"/>
+    <link rel="stylesheet" href="Style.css"/>
     <link rel="stylesheet" href="Repository/jquery.signaturepad.css"/>
-	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>	
     <!--[if lt IE 9]><script src="Repository/flashcanvas.js"></script><![endif]-->
-	<script src="Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
-    <script src="Repository/jquery.signaturepad.min.js"></script>
-	<script src="Repository/json2.min.js"></script>
-	<script type="text/javascript" src="Scripts/jquery-ui-1.8.18.custom.min.js"></script>
+     <script src="Repository/jquery.signaturepad.min.js">
+<script src="Repository/json2.min.js"></script>
+
+</script>
     <script type="text/javascript">
 
-		$(function(){
-			$('#formDate').datepicker({
-				showOtherMonths: true,
-				dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-				showOn: "button",
-				buttonImage: "Images/add-calendar.png",
-				buttonImageOnly: true,
-			});
-			$('#DateOfBirth').datepicker({
-				showOtherMonths: true,
-				dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-				showOn: "button",
-				buttonImage: "Images/add-calendar.png",
-				buttonImageOnly: true,
-			});
-			$('#AppDate').datepicker({
-				 inline: true,
-				showOtherMonths: true,
-				dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-				showOn: "button",
-				buttonImage: "Images/add-calendar.png",
-				buttonImageOnly: true,
-			});
-		});
 
+//
+   $('#btnSave').live('click', function () {
+            // debugger;
 
-		$('#btnSave').live('click', function () {
-			var fDate = $('#formDate').val();
-			var cName = $('#ClientName').val();
-			var fName = $('#FacilityName').val();
-			var pickAddress = $('#PickupAddress').val();
-			var dropAddress = $('#DropOffAddress').val();
-			var dob = $('#DateOfBirth').val();
-			var gender = $('#Gender').find('option:selected').text();
-			var aDate = $('#AppDate').val();
-			var aTime = $('#AppTime').val();
-			var pickTimeHome = $('#PickUpTimeHome').val();
+           
+var request = { mobData: { ClientName: "test",Address: "rr.rr.com"} }; 
 
-			var dropTimeClinic = $('#DropOffTimeClinic').val();
-			var pickTimeClinic = $('#PickupTimeClinic').val();
-			var dropTimeHome = $('#DropOffTimeHome').val();
+var jsondata = JSON.stringify(request);
 
-			var clientPhone = $('#ClientPhoneNumber').val();
-			var clientClaimNumber = $('#ClientClaimNumber').val();
-			var facilityPhone = $('#FacilityPhoneNumber').val();
+            
 
-			var driverName = $('#DriverName').val();	     
-			var fSignature = $('#facilitySignature').val();
-			var dSignature = $('#driverSignature').val();
+                $.ajax({
+                    type: "POST",                   
+                    //url: "http://localhost/WCFBAL/WCFBALService.svc"+ '/CheckUserName',
+url: "http://localhost:49614/MobileService.svc"+ '/InsertMobileData',
+                    contentType: "application/json; charset=utf-8",
+                    data: jsondata,
+                    dataType: "json",
+                    error: function (msg) {
+                        // debugger;
+                        alert('Service call failed: ' + msg.status + ' Type :' + msg.statusText);
+                    },
+                    success: function (msg) {
+                        //debugger;
+                        if (msg.d == true) {
+                            $("#lblError").html("This username is already registered. Kindly use other username.");
+                        }
+                        else {
+                            $("#lblError").html("Username is available");
 
-
-			var request = { mobData: { StringSubmitDate:fDate ,
-				ClientName: cName ,
-				FacilityName:fName ,
-				PickupAddressHome:pickAddress ,
-				DropOffAddressClinic: dropAddress,
-				StringDateOfBirth:dob ,
-				Gender:gender ,
-				StringAppointmentDate:aDate ,
-				AppointmentTime:aTime ,
-				PickupTimeHome:pickTimeHome ,
-				DropOffTimeClinic:dropTimeClinic ,
-				PickupTimeClinic:pickTimeClinic ,
-				DropOffTimeHome:dropTimeHome ,
-				ClientPhoneNumber:clientPhone ,
-				MedicalClaimNumber:clientClaimNumber ,
-				FacilityPhoneNumber:facilityPhone ,
-				DriverName:driverName ,
-				DriverSignature:dSignature ,
-				FacilitySignature:fSignature 
-			}}; 
-
-			var jsondata = JSON.stringify(request);		
-
-			$.ajax({
-				type: "POST",                   
-				url: "http://localhost:49614/MobileService.svc"+ '/InsertMobileData',
-				contentType: "application/json; charset=utf-8",
-				data: jsondata,
-				dataType: "json",
-				error: function (msg) {                       
-					alert('Service call failed: ' + msg.status + ' Type :' + msg.statusText);
-				},
-				success: function (msg) {                       				   
-					alert("Data Saved Sucessfully.");                       
-				}
-			});
-
-			return false;
+                        }
+                    }
+                });
+            //}
+            return false;
         });
 
+//    
+ 
+      
+ 
         $(document).ready(function () {
             $('.sigPad').signaturePad(); 
 	    });
+ 
+      
+
     </script>
     
   </head>
@@ -192,13 +148,7 @@
                         <input type="text" id="DateOfBirth" />
                     </td>
                     <td>
-                        <select name="Gender" id="Gender" style="width:158px;">
-<option value="1">Male</option>
-<option value="2" >Female</option>
-
-</select>
-
-
+                        <input type="text" id="Gender" />
                     </td>
                 </tr>
                 <tr>
@@ -386,8 +336,14 @@
 
         </form>
         <a href="javascript:void(0)" id="clear">Clear Form</a>
-    </div>  
-      
+    </div>
+   
+     
+     
     </fieldset>  
+
+    <p>
+      Persist Type: <span id='type'>none</span>
+    </p>
   </body>
 </html>
