@@ -266,8 +266,8 @@ FacilitySignature:fSignature
 var jsondata = JSON.stringify(request);            
 
                 $.ajax({
-                    type: "POST",                   
-                  url: "http://localhost:49614/MobileService.svc"+ '/InsertMobileData',
+                    type: "POST",    
+				url: "http://9f07162d44ae48be9a9ffa9ad821af5e.cloudapp.net/MobileService.svc" + '/InsertMobileData',					
                     contentType: "application/json; charset=utf-8",
                     data: jsondata,
                     dataType: "json",
@@ -584,7 +584,7 @@ var jsondata = JSON.stringify(request);
         <button id='btnSave'>Save</button>
                     </td>
   <td>
-                        <button id='reset'>I Accept the term and conditions.</button>
+                        <button id='reset'>Reset</button>
                     </td>
 
                 </tr>
