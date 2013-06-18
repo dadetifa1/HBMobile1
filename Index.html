@@ -1,114 +1,298 @@
 <!doctype html>
 <html lang="en">
 <head>
+ 
+ <script src="Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="viewport" content="width=device-width; initial-scale=0.5; maximum-scale=0.6; minimum-scale=0.6; user-scalable=0;" />
     <link rel="stylesheet" href="Styles/Style.css"/>
     <link rel="stylesheet" href="Repository/jquery.signaturepad.css"/>
-	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>	
     <!--[if lt IE 9]><script src="Repository/flashcanvas.js"></script><![endif]-->
-	<script src="Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
-    <script src="Repository/jquery.signaturepad.min.js"></script>
-	<script src="Repository/json2.min.js"></script>
+     <script src="Repository/jquery.signaturepad.min.js">
+<script src="Repository/json2.min.js"></script>
+</script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>	
+	
 	<script type="text/javascript" src="Scripts/jquery-ui-1.8.18.custom.min.js"></script>
+
     <script type="text/javascript">
 
-		$(function(){
+$(document).ready(function() { 
+$("#FacilityType").change(function(){ 
+var str=$('#FacilityType').find('option:selected').text();
+if(str=='facility')
+{
+$('#lblFacilityType').text(' I here by certify that the above named member was seen at this facility today'); 
+
+}
+else
+{
+$('#lblFacilityType').text('I do here by certify that I was transported to the above named facility today'); 
+
+}
+
+}); 
+var str1=$('#FacilityType').find('option:selected').text();
+if(str1=='facility')
+{
+$('#lblFacilityType').text(' I here by certify that the above named member was seen at this facility today'); 
+
+}
+else
+{
+$('#lblFacilityType').text('I do here by certify that I was transported to the above named facility today'); 
+
+}
+
+});
+
+
+$(function(){
 			$('#formDate').datepicker({
+				 //inline: true,
+				//nextText: '&rarr;',
+				//prevText: '&larr;',
 				showOtherMonths: true,
+				//dateFormat: 'dd MM yy',
 				dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 				showOn: "button",
 				buttonImage: "Images/add-calendar.png",
 				buttonImageOnly: true,
 			});
-			$('#DateOfBirth').datepicker({
+$('#DateOfBirth').datepicker({
+				// inline: true,
+				//nextText: '&rarr;',
+				//prevText: '&larr;',
 				showOtherMonths: true,
+				//dateFormat: 'dd MM yy',
 				dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 				showOn: "button",
 				buttonImage: "Images/add-calendar.png",
 				buttonImageOnly: true,
+
 			});
-			$('#AppDate').datepicker({
+
+$('#AppDate').datepicker({
 				 inline: true,
+				//nextText: '&rarr;',
+				//prevText: '&larr;',
 				showOtherMonths: true,
+				//dateFormat: 'dd MM yy',
 				dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 				showOn: "button",
 				buttonImage: "Images/add-calendar.png",
 				buttonImageOnly: true,
+
 			});
+
 		});
 
 
-		$('#btnSave').live('click', function () {
-			var fDate = $('#formDate').val();
-			var cName = $('#ClientName').val();
-			var fName = $('#FacilityName').val();
-			var pickAddress = $('#PickupAddress').val();
-			var dropAddress = $('#DropOffAddress').val();
-			var dob = $('#DateOfBirth').val();
-			var gender = $('#Gender').find('option:selected').text();
-			var aDate = $('#AppDate').val();
-			var aTime = $('#AppTime').val();
-			var pickTimeHome = $('#PickUpTimeHome').val();
+//
+   $('#btnSave').live('click', function () {
+            // debugger;
 
-			var dropTimeClinic = $('#DropOffTimeClinic').val();
-			var pickTimeClinic = $('#PickupTimeClinic').val();
-			var dropTimeHome = $('#DropOffTimeHome').val();
+var fDate = $('#formDate').val();
+var cName = $('#ClientName').val();
+var fName = $('#FacilityName').val();
+var pickAddress = $('#PickupAddress').val();
+var dropAddress = $('#DropOffAddress').val();
+var dob = $('#DateOfBirth').val();
+var gender = $('#Gender').find('option:selected').text();
+var aDate = $('#AppDate').val();
+var aTime = $('#AppTime').val();
+var pickTimeHome = $('#PickUpTimeHome').val();
 
-			var clientPhone = $('#ClientPhoneNumber').val();
-			var clientClaimNumber = $('#ClientClaimNumber').val();
-			var facilityPhone = $('#FacilityPhoneNumber').val();
+var dropTimeClinic = $('#DropOffTimeClinic').val();
+var pickTimeClinic = $('#PickupTimeClinic').val();
+var dropTimeHome = $('#DropOffTimeHome').val();
 
-			var driverName = $('#DriverName').val();	     
-			var fSignature = $('#facilitySignature').val();
-			var dSignature = $('#driverSignature').val();
+var clientPhone = $('#ClientPhoneNumber').val();
+var clientClaimNumber = $('#ClientClaimNumber').val();
+var facilityPhone = $('#FacilityPhoneNumber').val();
+
+var driverName = $('#DriverName').val();	     
+var fSignature = $('#facilitySignature').val();
+var dSignature = $('#driverSignature').val();
+
+if(fDate=='')
+{
+   alert('Please enter form date');
+   return false;
+ 
+ 
+}
+if(cName=='')
+{
+   alert('Please enter Client Name');
+   return false;
+
+}
+
+if(pickAddress =='')
+{
+   alert('Please enter Pick up Address');
+   return false;
+
+}
+
+if(dropAddress =='')
+{
+   alert('Please enter drop off Address');
+   return false;
+
+}
+if(dob =='')
+{
+   alert('Please enter Date of Birth');
+   return false;
+
+}
+
+if(gender =='')
+{
+   alert('Please select gender');
+   return false;
+
+}
+if(aDate =='')
+{
+   alert('Please enter Application Date');
+   return false;
+
+}
+
+if(aTime =='')
+{
+   alert('Please enter Application Time');
+   return false;
+
+}
+
+if(pickTimeHome =='')
+{
+   alert('Please enter Pick up Home Time');
+   return false;
+
+}
+
+if(dropTimeClinic =='')
+{
+   alert('Please enter Drop Off Clinic Time');
+   return false;
+
+}
+
+if(pickTimeClinic =='')
+{
+   alert('Please enter Pick Up Clinic Time');
+   return false;
+
+}
+
+if(dropTimeHome =='')
+{
+   alert('Please enter Drop Off Home Time');
+   return false;
+
+}
+
+if(clientPhone =='')
+{
+   alert('Please enter Client Phone Number');
+   return false;
+
+}
+
+if(clientClaimNumber =='')
+{
+   alert('Please enter Client Claim Number');
+   return false;
+
+}
+if(facilityPhone =='')
+{
+   alert('Please enter Facility Phone Number');
+   return false;
+
+}
+
+if(driverName =='')
+{
+   alert('Please enter Driver Name');
+   return false;
+
+}
+
+if(fSignature =='')
+{
+   alert('Please enter Facility Signature');
+   return false;
+
+}
+
+if(dSignature =='')
+{
+   alert('Please enter Driver Signature');
+   return false;
+
+}
 
 
-			var request = { mobData: { StringSubmitDate:fDate ,
-				ClientName: cName ,
-				FacilityName:fName ,
-				PickupAddressHome:pickAddress ,
-				DropOffAddressClinic: dropAddress,
-				StringDateOfBirth:dob ,
-				Gender:gender ,
-				StringAppointmentDate:aDate ,
-				AppointmentTime:aTime ,
-				PickupTimeHome:pickTimeHome ,
-				DropOffTimeClinic:dropTimeClinic ,
-				PickupTimeClinic:pickTimeClinic ,
-				DropOffTimeHome:dropTimeHome ,
-				ClientPhoneNumber:clientPhone ,
-				MedicalClaimNumber:clientClaimNumber ,
-				FacilityPhoneNumber:facilityPhone ,
-				DriverName:driverName ,
-				DriverSignature:dSignature ,
-				FacilitySignature:fSignature 
-			}}; 
+var request = { mobData: { StringSubmitDate:fDate ,
+ClientName: cName ,
+FacilityName:fName ,
+PickupAddressHome:pickAddress ,
+DropOffAddressClinic: dropAddress,
+StringDateOfBirth:dob ,
+Gender:gender ,
+StringAppointmentDate:aDate ,
+AppointmentTime:aTime ,
+PickupTimeHome:pickTimeHome ,
+DropOffTimeClinic:dropTimeClinic ,
+PickupTimeClinic:pickTimeClinic ,
+DropOffTimeHome:dropTimeHome ,
+ClientPhoneNumber:clientPhone ,
+MedicalClaimNumber:clientClaimNumber ,
+FacilityPhoneNumber:facilityPhone ,
+DriverName:driverName ,
+DriverSignature:dSignature ,
+FacilitySignature:fSignature 
+ } }; 
 
-			var jsondata = JSON.stringify(request);		
+var jsondata = JSON.stringify(request);            
 
-			$.ajax({
-				type: "POST",                   
-				url: "http://9f07162d44ae48be9a9ffa9ad821af5e.cloudapp.net/MobileService.svc" + '/InsertMobileData',
-				contentType: "application/json; charset=utf-8",
-				data: jsondata,
-				dataType: "json",
-				error: function (msg) {                       
-					alert('Service call failed: ' + msg.status + ' Type :' + msg.statusText);
-				},
-				success: function (msg) {                       				   
-					alert("Data Saved Sucessfully.");                       
-				}
-			});
-
-			return false;
+                $.ajax({
+                    type: "POST",                   
+                  url: "http://localhost:49614/MobileService.svc"+ '/InsertMobileData',
+                    contentType: "application/json; charset=utf-8",
+                    data: jsondata,
+                    dataType: "json",
+                    error: function (msg) {                       
+                        alert('Service call failed: ' + msg.status + ' Type :' + msg.statusText);
+                    },
+                    success: function (msg) {                       
+                       
+                            alert("Data Saved Sucessfully.");                       
+                    }
+                });
+            //}
+            return false;
         });
 
+//    
+ 
+      
+ 
         $(document).ready(function () {
             $('.sigPad').signaturePad(); 
 	    });
+ 
+      
+
     </script>
     
   </head>
@@ -296,9 +480,25 @@
                     </td>
                 </tr>
 
+
 </table>
               
 <table width="300" align="right" height="100">
+ <tr>
+                    <td>                       
+   <label for="FacilityType">
+                            Facility Type:</label>
+
+                    </td>
+                    <td>
+                     <select name="FacilityType" id="FacilityType" style="width:158px;">
+<option value="1" selected="selected">facility</option>
+<option value="2">member/customer</option>
+</select>
+
+                    </td>
+                </tr>
+
 <tr>
 <td>
   <label for="FacilitySignature">
@@ -330,7 +530,20 @@
 
 </td>
 </tr>
-    
+<tr>
+<td calspan="2"></td>
+</tr>
+<tr>
+<td colspan="2">
+ <label id="lblFacilityType" name="lblFacilityType">
+                            </label>
+
+</td>
+</tr>
+    <tr>
+<td calspan="2"></td>
+</tr>
+
 <tr>
 <td>
   <label for="DriverSignature">
